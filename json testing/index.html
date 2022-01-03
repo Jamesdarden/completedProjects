@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+<body>
+
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <script>
+      const output1 = document.getElementById('output1') 
+      const output2 = document.getElementById('output2') 
+      const url = 'https://randomuser.me/api/?results=50'
+      $(output1).css({
+                    'background-color':'light gray',
+                    'font-size': "2rem",
+                    'margin': '0 auto'
+                })
+      fetchData();
+
+      function fetchData (){
+        fetch(url).then(function(rep){
+            return rep.json()
+        }).then(function(data){
+            console.log(data.results);
+            let people = data.results.map(function(el){
+                return el.name.first + ' ' + el.name.last + '    '+ '<img src=' + el.picture.thumbnail +'>';
+            })
+            console.log(people)
+            people.forEach(element => {
+                console.log(element)
+                output1.innerHTML += `${element}<br>`
+               
+            });
+
+           /* data.results.forEach(element => {
+                output1.innerHTML += `${element.name.first}
+                ${element.name.last} <img src="${element.picture.thumbnail}"><br>`
+            });*/
+        })
+      }
+
+      //xhr
+     /*var xhr = new XMLHttpRequest()
+     //console.log(xhr.readyState)  
+     xhr.onreadystatechange = function (){
+         //console.log(xhr)
+         if(xhr.readyState === 4 && xhr.status === 200){
+             //console.log(xhr.responseText);
+             let temp = JSON.parse(xhr.responseText)
+             console.log(temp)
+             for (let x=0; x <temp.results.length; x++){
+                 console.log(temp.results[x])
+                 let person = temp.results[x];
+                 output1.innerHTML += `${person.name.first}
+                 ${person.name.last} <img src="${person.picture.thumbnail}"></temp.results.length;><br>`;
+             }
+             //output1.textContent = `${temp.results[0].name.first}`
+             //output2.textContent = `${temp.results[0].name.last}`
+             
+         }
+     } 
+     xhr.open('get','https://randomuser.me/api/?results=50')
+     xhr.send()*/
+    
+    
+    </script>
+</body>
+</html>
